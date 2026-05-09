@@ -20,6 +20,17 @@ public class RepackagedRecipeProvider extends RecipeProvider implements IConditi
 
     @Override
     protected void buildRecipes(@NotNull RecipeOutput output) {
+        //the holy recipe!!!
+        //a dev who forgot the recipe, a disassembly drone and a cat discussing the recipe for a block that connects and transports packages
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, RepackagedBlocks.PACKAGER_CONNECTOR.get())
+                .pattern(" a ")
+                .pattern("cbc")
+                .pattern(" a ")
+                .define('a', Items.IRON_NUGGET)
+                .define('b', AllItems.CARDBOARD)
+                .define('c', AllItems.IRON_SHEET)
+                .unlockedBy("has_cardboard", has(AllItems.CARDBOARD)).save(output);
+
         ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, RepackagedBlocks.FLUID_PACKAGER.get())
                 .pattern(" a ")
                 .pattern("aba")
