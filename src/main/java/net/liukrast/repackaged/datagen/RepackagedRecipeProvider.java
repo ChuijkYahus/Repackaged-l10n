@@ -21,7 +21,7 @@ public class RepackagedRecipeProvider extends RecipeProvider implements IConditi
     @Override
     protected void buildRecipes(@NotNull RecipeOutput output) {
         //the holy recipe!!!
-        //a dev who forgot the recipe, a disassembly drone and a cat discussing the recipe for a block that connects and transports packages
+        //a dev who forgot the recipe, a disassembly drone and a cat discussing the recipe for a block that connects and transports packages.
         ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, RepackagedBlocks.PACKAGER_CONNECTOR.get())
                 .pattern(" a ")
                 .pattern("cbc")
