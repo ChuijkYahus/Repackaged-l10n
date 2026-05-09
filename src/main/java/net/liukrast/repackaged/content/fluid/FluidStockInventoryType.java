@@ -6,10 +6,11 @@ import it.unimi.dsi.fastutil.Hash;
 import net.liukrast.deployer.lib.logistics.GenericPackageOrderData;
 import net.liukrast.deployer.lib.logistics.packager.AbstractInventorySummary;
 import net.liukrast.deployer.lib.logistics.packager.AbstractPackagerBlockEntity;
-import net.liukrast.deployer.lib.logistics.packager.GenericPackageItem;
 import net.liukrast.deployer.lib.logistics.packager.StockInventoryType;
 import net.liukrast.deployer.lib.logistics.packagerLink.GenericRequestPromise;
 import net.liukrast.deployer.lib.logistics.stockTicker.GenericOrderContained;
+import net.liukrast.repackaged.RepackagedConfig;
+import net.liukrast.repackaged.content.UnwrappablePackageItem;
 import net.liukrast.repackaged.registry.RepackagedDataComponents;
 import net.liukrast.repackaged.registry.RepackagedItems;
 import net.minecraft.ChatFormatting;
@@ -112,7 +113,7 @@ public class FluidStockInventoryType extends StockInventoryType<Fluid, FluidStac
 
         @Override
         public int maxCountPerSlot() {
-            return 1000;
+            return RepackagedConfig.Server.BOTTLE_CAPACITY.getAsInt();
         }
 
         @Override
@@ -138,7 +139,7 @@ public class FluidStockInventoryType extends StockInventoryType<Fluid, FluidStac
 
         @Override
         public IFluidHandler create(int slots) {
-            return new FluidTank(1000);
+            return new FluidTank(RepackagedConfig.Server.BOTTLE_CAPACITY.getAsInt());
         }
 
         @Override
@@ -185,13 +186,13 @@ public class FluidStockInventoryType extends StockInventoryType<Fluid, FluidStac
 
         @Override
         public ItemStack getRandomBox() {
-            List<DeferredItem<GenericPackageItem>> pool = !RepackagedItems.RARE_BOTTLES.isEmpty() && STYLE_PICKER.nextInt(RARE_CHANCE) == 0 ? RepackagedItems.RARE_BOTTLES : RepackagedItems.STANDARD_BOTTLES;
+            List<DeferredItem<UnwrappablePackageItem>> pool = !RepackagedItems.RARE_BOTTLES.isEmpty() && STYLE_PICKER.nextInt(RARE_CHANCE) == 0 ? RepackagedItems.RARE_BOTTLES : RepackagedItems.STANDARD_BOTTLES;
             return new ItemStack(pool.get(STYLE_PICKER.nextInt(pool.size())).get());
         }
 
         @Override
         public IFluidHandler getContents(ItemStack box) {
-            FluidTank newInv = new FluidTank(1000);
+            FluidTank newInv = new FluidTank(RepackagedConfig.Server.BOTTLE_CAPACITY.getAsInt());
             SimpleFluidContent contents = box.getOrDefault(RepackagedDataComponents.BOTTLE_CONTENTS.get(), SimpleFluidContent.EMPTY);
             newInv.fill(contents.copy(), IFluidHandler.FluidAction.EXECUTE);
             return newInv;
@@ -232,6 +233,10 @@ public class FluidStockInventoryType extends StockInventoryType<Fluid, FluidStac
                         .withStyle(ChatFormatting.ITALIC));
         }
     };
+
+    public FluidStockInventoryType() {
+        defaultUnpackProcedure = DefaultFluidUnpackProcedure.INSTANCE;
+    }
 
     @Override
     public @NotNull IValueHandler<Fluid, FluidStack, IFluidHandler> valueHandler() {
