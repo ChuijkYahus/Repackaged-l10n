@@ -20,8 +20,10 @@ public class RepackagedRecipeProvider extends RecipeProvider implements IConditi
 
     @Override
     protected void buildRecipes(@NotNull RecipeOutput output) {
-        //the holy recipe!!!
-        //a dev who forgot the recipe, a disassembly drone and a cat discussing the recipe for a block that connects and transports packages.
+        /*
+        The holy recipe
+        A dev who forgot the recipe, a disassembly drone and a cat discussing the recipe for a block that connects and transports packages.
+        */
         ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, RepackagedBlocks.PACKAGER_CONNECTOR.get())
                 .pattern(" a ")
                 .pattern("cbc")
@@ -60,7 +62,7 @@ public class RepackagedRecipeProvider extends RecipeProvider implements IConditi
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, RepackagedItems.FLUID_GAUGE)
                 .requires(RepackagedItems.FLUID_GAUGE)
-                .unlockedBy("has_fluid_gauge", has(RepackagedItems.FLUID_GAUGE)).save(output, "fluid_gauge_clear");
+                .unlockedBy("has_fluid_gauge", has(RepackagedItems.FLUID_GAUGE)).save(output, "repackaged:fluid_gauge_clear");
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, RepackagedItems.ENERGY_GAUGE)
                 .requires(AllBlocks.FACTORY_GAUGE).requires(AllItems.BRASS_SHEET)
@@ -68,6 +70,6 @@ public class RepackagedRecipeProvider extends RecipeProvider implements IConditi
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, RepackagedItems.ENERGY_GAUGE)
                 .requires(RepackagedItems.ENERGY_GAUGE)
-                .unlockedBy("has_energy_gauge", has(RepackagedItems.ENERGY_GAUGE)).save(output, "energy_gauge_clear");
+                .unlockedBy("has_energy_gauge", has(RepackagedItems.ENERGY_GAUGE)).save(output, "repackaged:energy_gauge_clear");
     }
 }
